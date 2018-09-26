@@ -22,7 +22,9 @@
 namespace Tests\Core\Command\User;
 
 use OC\Core\Command\User\Add;
-use OC\User\Service\SigninWithEmail;
+use OC\User\Service\CreatePassword;
+use OC\User\Service\CreateUser;
+use OC\User\Service\UserSendMail;
 use OC\User\User;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
@@ -45,22 +47,14 @@ class AddTest extends TestCase {
 
 		$application = new Application(\OC::$server->getConfig(), \OC::$server->getEventDispatcher(), \OC::$server->getRequest());
 		$command = new Add(\OC::$server->getUserManager(), \OC::$server->getGroupManager(), \OC::$server->getMailer(),
-			new SigninWithEmail(
-				\OC::$server->getUserSession(),
-				\OC::$server->getGroupManager(),
-				\OC::$server->getURLGenerator(),
-				\OC::$server->getUserManager(),
-				\OC::$server->getSecureRandom(),
-				new \OC_Defaults(),
-				\OC::$server->getTimeFactory(),
-				\OC::$server->getMailer(),
-				\OC::$server->getL10N('settings'),
-				\OC::$server->getLogger(),
-				\OC::$server->getConfig(),
-				\OC::$server->getAppManager(),
-				\OC::$server->getAvatarManager(),
-				\OC::$server->getEventDispatcher()
-			));
+			new CreateUser(
+				\OC::$server->getUserSession(), \OC::$server->getGroupManager(),
+				\OC::$server->getUserManager(), \OC::$server->getMailer(),
+				\OC::$server->getSecureRandom(), \OC::$server->getLogger(), new UserSendMail(
+					\OC::$server->getSecureRandom(), \OC::$server->getConfig(),
+					\OC::$server->getMailer(), \OC::$server->getURLGenerator(),
+					new \OC_Defaults(), \OC::$server->getTimeFactory(), \OC::$server->getL10N('settings')),
+				new CreatePassword(\OC::$server->getEventDispatcher(), \OC::$server->getSecureRandom())));
 		$command->setApplication($application);
 		$this->commandTester = new CommandTester($command);
 		$this->createUser('user1');

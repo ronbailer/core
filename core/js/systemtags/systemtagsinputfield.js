@@ -288,6 +288,23 @@
 			if (!this._resultTemplate) {
 				this._resultTemplate = Handlebars.compile(RESULT_TEMPLATE);
 			}
+
+			/**
+			 * Show edit if the tag is editable. This applies only if the user is
+			 * admin or the user belongs to the white listed group by the edit
+			 * tag
+			 */
+			var editableTag = data.userEditable === false;
+			if (editableTag === true) {
+				/*if (data.editableInGroup === true) {
+					this._allowActions = true;
+				} else {
+					this._allowActions = false;
+				}*/
+				this._allowActions = data.editableInGroup === true;
+			} else {
+				this._allowActions = true;
+			}
 			return this._resultTemplate(_.extend({
 				renameTooltip: t('core', 'Rename'),
 				allowActions: this._allowActions,

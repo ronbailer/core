@@ -15,4 +15,5 @@
 	<types>
 		<logging/>
 	</types>
+	<use-migrations>true</use-migrations>
 </info>

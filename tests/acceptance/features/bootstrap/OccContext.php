@@ -257,7 +257,22 @@ class OccContext implements Context {
 	}
 
 	/**
-<<<<<<< HEAD
+	 * @When the administrator changes the language of user :username to :language using the occ command
+	 *
+	 * @param string $username
+	 * @param string $language
+	 *
+	 * @return void
+	 */
+	public function theAdministratorChangesTheLanguageOfUserToUsingTheOccCommand(
+		$username, $language
+	) {
+		$this->featureContext->invokingTheCommand(
+			"user:setting $username core lang --value='$language'"
+		);
+	}
+
+	/**
 	 * @When the administrator retrieves the user report using the occ command
 	 *
 	 * @return void
@@ -267,8 +282,6 @@ class OccContext implements Context {
 	}
 
 	/**
-=======
->>>>>>> 9fc33f8592... cliTest for userLastSeen
 	 * @When the administrator sends a group creation request for group :group using the occ command
 	 *
 	 * @param string $group
@@ -424,6 +437,22 @@ class OccContext implements Context {
 	}
 
 	/**
+	 * @Then the language of the user :username returned by the occ command should be :language
+	 *
+	 * @param string $username
+	 * @param string $language
+	 *
+	 * @return void
+	 */
+	public function theLanguageOfTheUserReturnedByTheOccCommandShouldBe($username, $language) {
+		$this->featureContext->invokingTheCommand(
+			"user:setting $username core lang"
+		);
+		$responseLanguage = $this->featureContext->getStdOutOfOccCommand();
+		PHPUnit_Framework_Assert::assertEquals($language, \trim($responseLanguage));
+	}
+
+	/**
 	 * @Then the app name returned by the occ command should be :appName
 	 *
 	 * @param string $appName
@@ -557,7 +586,6 @@ class OccContext implements Context {
 	}
 
 	/**
-<<<<<<< HEAD
 	 * @Then the total users returned by the commmand should be :noOfUsers
 	 *
 	 * @param integer $noOfUsers
@@ -571,8 +599,6 @@ class OccContext implements Context {
 	}
 
 	/**
-=======
->>>>>>> 9fc33f8592... cliTest for userLastSeen
 	 * @When the administrator sets the log level to :level using the occ command
 	 *
 	 * @param string $level

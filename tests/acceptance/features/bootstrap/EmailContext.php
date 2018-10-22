@@ -98,7 +98,6 @@ class EmailContext implements Context {
 		}
 		throw \Exception("Email exists with email address: {$address}.");
 	}
-
 	/**
 	 * @BeforeScenario @mailhog
 	 *

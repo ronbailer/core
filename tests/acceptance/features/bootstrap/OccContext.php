@@ -257,6 +257,7 @@ class OccContext implements Context {
 	}
 
 	/**
+<<<<<<< HEAD
 	 * @When the administrator retrieves the user report using the occ command
 	 *
 	 * @return void
@@ -266,6 +267,8 @@ class OccContext implements Context {
 	}
 
 	/**
+=======
+>>>>>>> 9fc33f8592... cliTest for userLastSeen
 	 * @When the administrator sends a group creation request for group :group using the occ command
 	 *
 	 * @param string $group
@@ -554,6 +557,7 @@ class OccContext implements Context {
 	}
 
 	/**
+<<<<<<< HEAD
 	 * @Then the total users returned by the commmand should be :noOfUsers
 	 *
 	 * @param integer $noOfUsers
@@ -567,6 +571,8 @@ class OccContext implements Context {
 	}
 
 	/**
+=======
+>>>>>>> 9fc33f8592... cliTest for userLastSeen
 	 * @When the administrator sets the log level to :level using the occ command
 	 *
 	 * @param string $level
